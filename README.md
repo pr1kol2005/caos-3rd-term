@@ -1,7 +1,7 @@
-# АКОС, осень 2023
+# АКОС, осень 2024
 
 * [Manytask](https://manytask.carzil.ru/)
-* [Табличка с баллами](https://docs.google.com/spreadsheets/d/1eQfkWMgxAU1s8hInsMstEHj2H9l0lgBmUJyC0w-LAaw)
+* [Табличка с баллами](https://docs.google.com/spreadsheets/d/1ynF6GIW1I2x8heONNzOI8XZHmFDhjqBEQcKUZp16U4c)
 * [Гайд по сдаче домашек](./GUIDE.md)
 
 ## Лекции
