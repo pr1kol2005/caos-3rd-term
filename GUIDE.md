@@ -16,14 +16,14 @@ ssh-keygen -t rsa -b 4096
 ## Клонирование репозитория
 После добавление SSH-ключа можно попробовать склонировать репозиторий:
 ```
-git clone git@gitlab.carzil.ru:mipt-os-basic-2023-autumn/<ваш ник>.git
+git clone git@gitlab.carzil.ru:mipt-os-basic-2024-autumn/<ваш ник>.git
 ```
 Клон будет создан в текущей директории и будет называться `<ваш ник>`.
 
 ## Добавление апстрима
 При появлении новых задач или тестов, необходимо будет эти обновления забрать к себе в локальный репоизиторий. Для этого **единожды** после клонирования нужно добавить апстрим в локальный репозиторий:
 ```
-git remote add upstream git@gitlab.carzil.ru:mipt-os-basic/public-2023-autumn.git
+git remote add upstream git@gitlab.carzil.ru:mipt-os-basic/public-2024-autumn.git
 ```
 Забрать изменения из публичного репозитория:
 ```
