@@ -23,7 +23,7 @@ git clone git@gitlab.carzil.ru:mipt-os-basic-2024-autumn/<ваш ник>.git
 ## Добавление апстрима
 При появлении новых задач или тестов, необходимо будет эти обновления забрать к себе в локальный репоизиторий. Для этого **единожды** после клонирования нужно добавить апстрим в локальный репозиторий:
 ```
-git remote add upstream git@gitlab.carzil.ru:mipt-os-basic/public-2024-autumn.git
+git remote add upstream git@gitlab.carzil.ru:mipt-os-basic/public-2024.git
 ```
 Забрать изменения из публичного репозитория:
 ```
