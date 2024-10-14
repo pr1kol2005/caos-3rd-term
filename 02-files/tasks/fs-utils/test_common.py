@@ -21,7 +21,7 @@ def assert_not_exists(*args):
 def assert_mode(expected, *args):
     for path in args:
         actual = path.stat().st_mode & 0x1ff
-        if actual & expected != expected:
+        if actual != expected:
             print("File mode ({:o}) doesn't match expected ({:o})".format(expected, actual))
             exit(1)
 
