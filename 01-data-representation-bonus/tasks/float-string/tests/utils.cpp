@@ -310,6 +310,7 @@ bool run_suite(Suite& suite) {
 }
 
 bool run_suite_as_subprocess(Suite& suite) {
+    std::cout << std::flush;
     int pid = fork();
     if (pid == 0) {
         exit(run_suite(suite) ? EXIT_FAILURE : EXIT_SUCCESS);
