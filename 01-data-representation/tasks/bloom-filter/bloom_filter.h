@@ -1,6 +1,5 @@
 #include <stdbool.h>
 #include <stdint.h>
-#include <stdlib.h>
 
 typedef uint64_t (*hash_fn_t)(const char*, uint64_t, uint64_t);
 

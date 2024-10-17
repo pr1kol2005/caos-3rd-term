@@ -1,4 +1,6 @@
 #include "bloom_filter.h"
+#include <stdlib.h>
+#include <stddef.h>
 
 uint64_t calc_hash(const char* str, uint64_t modulus, uint64_t seed) {
   uint64_t hash = 0;
