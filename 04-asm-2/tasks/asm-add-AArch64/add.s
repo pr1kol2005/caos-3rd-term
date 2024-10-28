@@ -1,7 +1,6 @@
   .text
-  .global add
+  .global _add
 
-add:
-  // ???
-
+_add:
+  add x0, x0, x1
   ret
