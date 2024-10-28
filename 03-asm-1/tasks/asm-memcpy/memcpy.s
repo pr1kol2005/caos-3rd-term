@@ -28,12 +28,12 @@ my_memcpy:
   je .end
 
   lea rcx, [edx]
-  xor rbx, rbx
+  xor r8, r8
 
 .copy_byte:
-  mov al, [rsi + rbx]
-  mov [rdi + rbx], al
-  inc rbx
+  mov al, [rsi + r8]
+  mov [rdi + r8], al
+  inc r8
   dec rcx
   jne .copy_byte
 
