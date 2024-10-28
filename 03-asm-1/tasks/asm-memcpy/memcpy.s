@@ -9,7 +9,7 @@ my_memcpy:
   # edx - count
 
   test edx, edx
-  je .return
+  je .end
 
 .loop:
   cmp edx, 8
@@ -25,7 +25,7 @@ my_memcpy:
 
 .copy_rest:
   test edx, edx
-  je .return
+  je .end
 
   lea rcx, [edx]
   xor rbx, rbx
@@ -37,7 +37,7 @@ my_memcpy:
   dec rcx
   jne .copy_byte
 
-.return:
+.end:
   lea rax, [rdi]
   ret
 
