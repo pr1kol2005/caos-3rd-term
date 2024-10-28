@@ -27,14 +27,14 @@ my_memcpy:
   test edx, edx
   je .return
 
-  lea rbp, [edx]
+  lea rcx, [edx]
   xor rbx, rbx
 
 .copy_byte:
   mov al, [rsi + rbx]
   mov [rdi + rbx], al
   inc rbx
-  dec rbp
+  dec rcx
   jne .copy_byte
 
 .return:
