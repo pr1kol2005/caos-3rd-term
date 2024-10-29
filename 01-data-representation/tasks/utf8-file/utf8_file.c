@@ -5,34 +5,42 @@ int encode_utf8(uint32_t symbol, uint8_t* buffer) {
     buffer[0] = symbol;
     return 1;
   } else if (symbol <= 0x7FF) {
-    buffer[0] = 0xC0 | ((symbol >> 6) & 0x1F);
+    buffer[0] = 0xC0 | (symbol >> 6);
     buffer[1] = 0x80 | (symbol & 0x3F);
     return 2;
   } else if (symbol <= 0xFFFF) {
-    buffer[0] = 0xE0 | ((symbol >> 12) & 0x0F);
+    buffer[0] = 0xE0 | (symbol >> 12);
     buffer[1] = 0x80 | ((symbol >> 6) & 0x3F);
     buffer[2] = 0x80 | (symbol & 0x3F);
     return 3;
   } else if (symbol <= 0x10FFFF) {
-    buffer[0] = 0xF0 | ((symbol >> 18) & 0x07);
+    buffer[0] = 0xF0 | (symbol >> 18);
     buffer[1] = 0x80 | ((symbol >> 12) & 0x3F);
     buffer[2] = 0x80 | ((symbol >> 6) & 0x3F);
     buffer[3] = 0x80 | (symbol & 0x3F);
     return 4;
   } else if (symbol <= 0x7FFFFFFF) {
-    buffer[0] = 0xF8 | ((symbol >> 24) & 0x03);
+    buffer[0] = 0xF8 | (symbol >> 24);
     buffer[1] = 0x80 | ((symbol >> 18) & 0x3F);
     buffer[2] = 0x80 | ((symbol >> 12) & 0x3F);
     buffer[3] = 0x80 | ((symbol >> 6) & 0x3F);
     buffer[4] = 0x80 | (symbol & 0x3F);
     return 5;
+  } else if (symbol <= 0xFFFFFFFF) {
+    buffer[0] = 0xFC | (symbol >> 30);
+    buffer[1] = 0x80 | ((symbol >> 24) & 0x3F);
+    buffer[2] = 0x80 | ((symbol >> 18) & 0x3F);
+    buffer[3] = 0x80 | ((symbol >> 12) & 0x3F);
+    buffer[4] = 0x80 | ((symbol >> 6) & 0x3F);
+    buffer[5] = 0x80 | (symbol & 0x3F);
+    return 6;
   } else {
     return -1;
   }
 }
 
 int utf8_write(utf8_file_t* f, const uint32_t* str, size_t count) {
-  uint8_t buffer[5];
+  uint8_t buffer[6];
   size_t written_count = 0;
 
   for (size_t i = 0; i < count; i++) {
@@ -56,8 +64,8 @@ int utf8_write(utf8_file_t* f, const uint32_t* str, size_t count) {
   return written_count;
 }
 
-int decode_utf8(uint32_t* symbol, uint8_t* buffer) {
-  if ((buffer[0] & 0x80) == 0) {
+int decode_utf8(uint32_t* symbol, const uint8_t* buffer) {
+  if (buffer[0] <= 0x7F) {
     *symbol = buffer[0];
     return 1;
   } else if ((buffer[0] & 0xE0) == 0xC0) {
@@ -76,32 +84,35 @@ int decode_utf8(uint32_t* symbol, uint8_t* buffer) {
               (buffer[2] & 0x3F) << 12 | (buffer[3] & 0x3F) << 6 |
               (buffer[4] & 0x3F);
     return 5;
+  } else if ((buffer[0] & 0xFE) == 0xFC) {
+    *symbol = (buffer[0] & 0x01) << 30 | (buffer[1] & 0x3F) << 24 |
+              (buffer[2] & 0x3F) << 18 | (buffer[3] & 0x3F) << 12 |
+              (buffer[4] & 0x3F) << 6 | (buffer[5] & 0x3F);
+    return 6;
   } else {
     return -1;
   }
 }
 
 int utf8_read(utf8_file_t* f, uint32_t* res, size_t count) {
-  uint8_t buffer[5];
+  uint8_t buffer[6];
   size_t read_count = 0;
-  size_t bytes_read;
 
   while (read_count < count) {
-    bytes_read = read(f->fd, buffer, 1);
+    int bytes_read = read(f->fd, buffer, 1);
     if (bytes_read == 0) {
       break;
-    }
-    if (bytes_read == -1) {
+    } else if (bytes_read < 0) {
       return -1;
     }
 
-    int bytes_count = 1;
-    while (bytes_count < 5) {
-      bytes_read = read(f->fd, buffer + bytes_count, 1);
+    size_t len = 1;
+    while ((buffer[0] & (0x80 >> len)) && len < 6) {
+      bytes_read = read(f->fd, buffer + len, 1);
       if (bytes_read < 0) {
         return -1;
       }
-      bytes_count++;
+      len++;
     }
 
     uint32_t symbol;
@@ -115,7 +126,7 @@ int utf8_read(utf8_file_t* f, uint32_t* res, size_t count) {
     read_count++;
   }
 
-  return read_count;
+  return read_count ? (int)read_count : 0;
 }
 
 utf8_file_t* utf8_fromfd(int fd) {
@@ -123,7 +134,11 @@ utf8_file_t* utf8_fromfd(int fd) {
     errno = EINVAL;
     return NULL;
   }
-  utf8_file_t* file = malloc(sizeof(utf8_file_t));
+  utf8_file_t* file = (utf8_file_t*)malloc(sizeof(utf8_file_t));
+  if (!file) {
+    errno = ENOMEM;
+    return NULL;
+  }
   file->fd = fd;
   return file;
 }
