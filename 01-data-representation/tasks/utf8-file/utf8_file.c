@@ -64,7 +64,7 @@ int utf8_write(utf8_file_t* f, const uint32_t* str, size_t count) {
   return written_count;
 }
 
-int decode_utf8(uint32_t* symbol, const uint8_t* buffer) {
+int decode_utf8(uint32_t* symbol, uint8_t* buffer) {
   if (buffer[0] <= 0x7F) {
     *symbol = buffer[0];
     return 1;
@@ -126,7 +126,7 @@ int utf8_read(utf8_file_t* f, uint32_t* res, size_t count) {
     read_count++;
   }
 
-  return read_count ? (int)read_count : 0;
+  return read_count;
 }
 
 utf8_file_t* utf8_fromfd(int fd) {
@@ -134,11 +134,9 @@ utf8_file_t* utf8_fromfd(int fd) {
     errno = EINVAL;
     return NULL;
   }
+
   utf8_file_t* file = (utf8_file_t*)malloc(sizeof(utf8_file_t));
-  if (!file) {
-    errno = ENOMEM;
-    return NULL;
-  }
+
   file->fd = fd;
   return file;
 }
