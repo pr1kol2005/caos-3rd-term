@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-int kMaxFileSize = 4096;
+const int kMaxFileSize = 4096;
 
 void tail_f(const char* filename) {
   int fd = open(filename, O_RDONLY);
