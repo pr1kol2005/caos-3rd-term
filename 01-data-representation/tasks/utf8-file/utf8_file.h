@@ -1,11 +1,13 @@
 #pragma once
 
-#include <stdlib.h>
-#include <stdio.h>
+#include <errno.h>
 #include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 typedef struct {
-    // TODO: add necessary members
+  int fd;
 } utf8_file_t;
 
 int utf8_write(utf8_file_t* f, const uint32_t* str, size_t count);
