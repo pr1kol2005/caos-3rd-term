@@ -1,7 +1,7 @@
   .text
-  .global _longest_inc_subseq
+  .global longest_inc_subseq
 
-_longest_inc_subseq:
+longest_inc_subseq:
   // x0 - array
   // x1 - help_array
   // x2 - size
