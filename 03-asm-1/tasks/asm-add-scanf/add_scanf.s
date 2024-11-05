@@ -9,9 +9,9 @@ add_scanf:
 
   sub rsp, 16
 
-  mov rdi, [scanf_format_string]
-  mov rsi, [rsp]
-  mov rdx, [rsp + 8]
+  lea rdi, [scanf_format_string]
+  lea rsi, [rsp]
+  lea rdx, [rsp + 8]
 
   call scanf
 
