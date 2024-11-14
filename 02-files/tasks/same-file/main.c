@@ -10,7 +10,7 @@ bool is_same_file(const char* lhs_path, const char* rhs_path) {
     return false;
   }
 
-  return(lhs_stat.st_ino == rhs_stat.st_ino);
+  return(lhs_stat.st_ino == rhs_stat.st_ino) && (lhs_stat.st_dev == rhs_stat.st_dev);
 }
 
 int main(int argc, const char* argv[]) {
