@@ -8,9 +8,6 @@ my_memcpy:
   # rsi - src
   # edx - count
 
-  test edx, edx
-  je .end
-
 .loop:
   cmp edx, 8
   jl .copy_rest
