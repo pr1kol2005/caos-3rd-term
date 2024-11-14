@@ -1,5 +1,6 @@
 #include <errno.h>
 #include <getopt.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,7 +8,6 @@
 #include <unistd.h>
 
 const mode_t RWE = 0777;
-const int PATH_MAX = 1024;
 
 void CreateParents(const char *path, mode_t mode) {
   char temp[PATH_MAX];
@@ -39,7 +39,8 @@ int main(int argc, char *argv[]) {
 
   struct option long_options[] = {{"mode", required_argument, 0, 'm'}};
 
-  while ((current_option = getopt_long(argc, argv, "pm:", long_options, NULL)) != -1) {
+  while ((current_option =
+              getopt_long(argc, argv, "pm:", long_options, NULL)) != -1) {
     if (current_option == 'p') {
       is_there_p = 1;
     } else if (current_option == 'm') {
