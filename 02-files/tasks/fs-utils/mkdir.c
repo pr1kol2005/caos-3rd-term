@@ -11,7 +11,7 @@ const int PATH_MAX = 1024;
 
 void CreateParents(const char *path, mode_t mode) {
   char temp[PATH_MAX];
-  strncpy(temp, path, sizeof(temp));
+  snprintf(temp, sizeof(temp), "%s", path);
   temp[sizeof(temp) - 1] = '\0';
 
   char *parent = temp;
