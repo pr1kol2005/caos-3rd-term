@@ -3,6 +3,7 @@
 #include <stdatomic.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct node {
   struct node *next;
@@ -27,13 +28,13 @@ typedef struct lfstack {
 
 int lfstack_init(lfstack_t *stack) {
   stack->top = NULL;
-  return 0;
+  return EXIT_SUCCESS;
 }
 
 int lfstack_push(lfstack_t *stack, uintptr_t value) {
   node_t *new_node;
   if ((new_node = calloc(1, sizeof(node_t))) == NULL) {
-    return 1;
+    return EXIT_FAILURE;
   }
 
   new_node->value = value;
@@ -46,7 +47,7 @@ int lfstack_push(lfstack_t *stack, uintptr_t value) {
       break;
     }
   }
-  return 0;
+  return EXIT_SUCCESS;
 }
 
 int lfstack_pop(lfstack_t *stack, uintptr_t *value) {
@@ -64,12 +65,9 @@ int lfstack_pop(lfstack_t *stack, uintptr_t *value) {
     *value = top->value;
     free(top);
   }
-  return 0;
+  return EXIT_SUCCESS;
 }
 
 int lfstack_destroy(lfstack_t *stack) {
-  if (stack == NULL) {
-    return 0;
-  }
-  return 1;
+  return stack == NULL ? EXIT_SUCCESS : EXIT_FAILURE;
 }
