@@ -6,8 +6,9 @@
 
 const size_t MAX_PATH_LENGTH = 1024;
 const size_t MAX_LINE_LENGTH = 1024;
+const size_t PPID_LINE_NUMBER_POSITION = 6;
 
-pid_t get_parent_id(pid_t pid) {
+pid_t get_parent_pid(pid_t pid) {
   pid_t parent_id = 0;
 
   char proc_filename[MAX_PATH_LENGTH];
@@ -18,7 +19,7 @@ pid_t get_parent_id(pid_t pid) {
     char line[MAX_LINE_LENGTH];
     while (fgets(line, MAX_LINE_LENGTH, process_information) != NULL) {
       if (strncmp(line, "PPid", 4) == 0) {
-        parent_id = (pid_t)atoll(line + 8);
+        parent_id = (pid_t)atoi(line + PPID_LINE_NUMBER_POSITION);
         break;
       }
     }
@@ -36,13 +37,13 @@ pid_t find_lca(pid_t x, pid_t y) {
 
   while (x != 0) {
     *x_traversal = x;
-    x = get_parent_id(x);
+    x = get_parent_pid(x);
     ++x_traversal;
   }
 
   while (y != 0) {
     *y_traversal = y;
-    y = get_parent_id(y);
+    y = get_parent_pid(y);
     ++y_traversal;
   }
 
