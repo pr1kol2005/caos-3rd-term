@@ -114,7 +114,7 @@ void set_to_pi_div_e(Float* flt) {
     // 61210276222194259128255528725959244698699011316907
     //      ^-- Probably, the last correct digit, but it's hard to verify...
 
-    uint64_t exponent_bytes = 0x3ff;
+    uint64_t exponent_bytes = 0x3fff;
     // clang-format off
     uint64_t mantissa_bytes[16] = {
         0x7fb08af77817a025, 0xcf68e9fe65193aa7, 0x30451854ccb0b0c6, 0x25b33bbce68c7458,

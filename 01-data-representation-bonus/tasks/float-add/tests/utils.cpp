@@ -87,7 +87,7 @@ bool cmp_float(Float* a, Float* b) {
     float_get_mantissa(b, mantissa_b);
 
     return sign_a == sign_b && memcmp(mantissa_a, mantissa_b, sizeof(mantissa_a)) == 0 &&
-           memcmp(exponent_a, exponent_a, sizeof(exponent_a)) == 0;
+           memcmp(exponent_a, exponent_b, sizeof(exponent_a)) == 0;
 }
 
 void test_bin_op(FloatBinOp* op, int e, int m, const char* s1, int sign1, uint64_t e1, uint64_t m1, const char* s2,

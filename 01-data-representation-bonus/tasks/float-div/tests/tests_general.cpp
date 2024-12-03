@@ -38,7 +38,7 @@ TEST(test_construct, Suite::construct()) {
             if (EXPECT(real_exponent == random_exponent) << "Your Float does not preserve the exponent ("
                                                          << real_exponent << " instead of " << random_exponent << ")")
                 return;
-            if (EXPECT(real_mantissa == random_mantissa) << "Your Float does not preserve the exponent ("
+            if (EXPECT(real_mantissa == random_mantissa) << "Your Float does not preserve the mantissa ("
                                                          << real_mantissa << " instead of " << random_mantissa << ")")
                 return;
             if (EXPECT(real_sign == random_sign)
@@ -54,8 +54,8 @@ TEST(test_construct, Suite::construct()) {
  * Although I tried really hard to make reference solution as perfect
  * and bug-free as possible, I accept the possibility that there could
  * be some bugs in these tests. If you are sure that you've found a
- * mistake, you are welcome to present it to me at the next class and have
- * the entire task and get a full grade on this task.
+ * mistake, you are welcome to present it to me at the next class and
+ * get full grade on this task.
  *
  * Sincerely yours, Artem.
  */

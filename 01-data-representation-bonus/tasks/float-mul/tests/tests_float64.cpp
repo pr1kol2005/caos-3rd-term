@@ -10,7 +10,8 @@ TEST(test_float64_fuzz_sub, Suite::add()) {
 }
 
 TEST(test_float64_fuzz_mul, Suite::mul()) {
-    fuzz_bin_op<double>(11, 52, "*", float_mul, [](auto a, auto b) { return a * b; });
+    // 100000 iterations here is to ban solutions with DynNum
+    fuzz_bin_op<double>(11, 52, "*", float_mul, [](auto a, auto b) { return a * b; }, 100000);
 }
 
 TEST(test_float64_fuzz_div, Suite::div()) {
