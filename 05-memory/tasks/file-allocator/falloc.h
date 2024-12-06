@@ -1,6 +1,6 @@
 #include <stdint.h>
 
-enum { PAGE_SIZE = 4096, PAGE_MASK_SIZE = 512, PAGE_MASK_SIZE_IN_BYTES = 64 };
+enum { PAGE_SIZE = 4096, PAGE_MASK_SIZE = 512 };
 
 typedef struct {
   int fd;

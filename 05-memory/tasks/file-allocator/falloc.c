@@ -8,6 +8,8 @@
 #include <sys/mman.h>
 #include <unistd.h>
 
+const size_t PAGE_MASK_SIZE_IN_BYTES = 64;
+
 uint64_t GetPageBit(file_allocator_t* allocator, size_t index) {
   return (allocator->page_mask[index >> 6] & (1ull << (index & 0x3F)));
 }
