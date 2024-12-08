@@ -20,10 +20,7 @@ void signalfd_action(int sig, siginfo_t* unused_1, void* unused_2) {
 
   lseek(signal_fd_, 0, SEEK_END);
 
-  if (write(signal_fd_, &sig, sizeof(int)) == -1) {
-    perror("write");
-    return;
-  };
+  write(signal_fd_, &sig, sizeof(int));
 
   lseek(signal_fd_, file_offset, SEEK_SET);
 }
@@ -49,10 +46,6 @@ int signalfd() {
   for (int sig = 1; sig < NSIG; ++sig) {
     if (sig != SIGKILL && sig != SIGSTOP) {
       sigaction(sig, &sigaction_config, NULL);
-      if (errno != 0) {
-        perror("sigaction");
-        return -1;
-      }
     }
   }
 
