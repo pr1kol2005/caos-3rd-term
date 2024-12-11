@@ -48,6 +48,8 @@ void process_file_line(pcre* pattern, char* path, char* file_mapping,
   if (search_result > 0) {
     printf("%s:%zu: %s\n", path, line_number, current_line);
   }
+
+  free(current_line);
 }
 
 void process_file(pcre* pattern, char* path) {
