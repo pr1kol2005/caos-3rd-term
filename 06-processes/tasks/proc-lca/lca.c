@@ -4,9 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-const size_t MAX_PATH_LENGTH = 1024;
-const size_t MAX_LINE_LENGTH = 1024;
-const size_t PPID_LINE_NUMBER_POSITION = 6;
+enum{ MAX_PATH_LENGTH = 1024, MAX_LINE_LENGTH = 1024, PPID_LINE_NUMBER_POSITION = 6 };
 
 pid_t get_parent_pid(pid_t pid) {
   pid_t parent_id = 0;
