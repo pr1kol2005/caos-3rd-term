@@ -14,3 +14,5 @@
 ## Полезные ссылки
 * [Intel Software Developer Manual](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html)
 * [ARM A-profile A64 Instruction Set Architecture](https://developer.arm.com/documentation/ddi0602/2023-09/?lang=en)
+
+// TODO : update and translate readme
