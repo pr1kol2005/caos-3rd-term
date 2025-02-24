@@ -1,1 +1,1 @@
-## Homework for computer architecture and operating systems course completed in the 3rd semester.
+# Homework for Computer Architecture and Operating Systems course completed in the 3rd semester
